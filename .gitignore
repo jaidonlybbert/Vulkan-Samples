@@ -10,6 +10,9 @@ output/*
 .mypy_cache
 tags
 
+# compiled shaders
+*.spv
+
 # vim backup and temp files
 *~
 .*.sw*
