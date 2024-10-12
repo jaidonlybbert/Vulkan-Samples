@@ -30,7 +30,10 @@ samples() {
 }
 
 start() {
+	TMPDIR="$(pwd)"
+	cd ${REPO_ROOT_DIR}
 	${SAMPLES_BIN} sample $1
+	cd ${TMPDIR}
 }
 
 test() {
