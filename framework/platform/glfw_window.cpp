@@ -327,6 +327,7 @@ GlfwWindow::GlfwWindow(Platform *platform, const Window::Properties &properties)
 
 	glfwSetInputMode(handle, GLFW_STICKY_KEYS, 1);
 	glfwSetInputMode(handle, GLFW_STICKY_MOUSE_BUTTONS, 1);
+	glfwSetInputMode(handle, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
 GlfwWindow::~GlfwWindow()
