@@ -455,3 +455,6 @@ if (VKB_PROFILING)
     add_compile_definitions(TRACY_NO_INVARIANT_CHECK=1)
     set_property(TARGET TracyClient PROPERTY FOLDER "ThirdParty")
 endif()
+
+add_subdirectory(entt)
+set_property(TARGET EnTT PROPERTY FOLDER "ThirdParty")
