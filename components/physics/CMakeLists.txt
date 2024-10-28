@@ -5,6 +5,7 @@ vkb__register_component(
         src/physics.cpp
     LINK_LIBS
         vkb__core
+        EnTT::EnTT
 )
 
 vkb__register_tests(
