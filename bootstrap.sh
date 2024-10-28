@@ -2,7 +2,7 @@
 
 export REPO_ROOT_DIR=~/src/Vulkan-Samples
 export BUILD_PATH=${REPO_ROOT_DIR}/build/mac
-export SAMPLES_BIN=${REPO_ROOT_DIR}/build/mac/app/bin/Release/arm64/vulkan_samples
+export SAMPLES_BIN=${REPO_ROOT_DIR}/build/mac/app/bin/Debug/arm64/vulkan_samples
 export VULKAN_ENV_INIT=~/VulkanSDK/1.3.283.0/setup-env.sh
 export PROJECT_SRC_DIR=${REPO_ROOT_DIR}/samples/general/sandbox/
 export CMAKE_EXPORT_COMPILE_COMMANDS=1
