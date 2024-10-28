@@ -21,6 +21,7 @@
 
 #include "common/glm_common.h"
 #include "glm/gtx/quaternion.hpp"
+#include "glm/gtx/projection.hpp"
 
 #include "filesystem/legacy.h"
 #include "rendering/pipeline_state.h"
@@ -105,4 +106,33 @@ sg::Light &add_spot_light(sg::Scene &scene, const glm::vec3 &position, const glm
  */
 sg::Node &add_free_camera(sg::Scene &scene, const std::string &node_name, VkExtent2D extent);
 
+/**
+ * @brief Add player_controller script to a node which has a child node with a camera object.
+ * @param scene The scene to add the player to
+ * @param node_name The scene node name
+ * @param extent The initial resolution of the camera
+ * @return Node where the script was attached as component
+ */
+sg::Node &add_player_controller(sg::Scene &scene, const std::string &node_name, VkExtent2D extent);
+
+/**
+ * @brief Searches child nodes and returns node with matching name, or throws exception
+ * @param parent_node The parent node whose children are searched
+ * @param name The name of the node to return
+*/
+sg::Node *find_child_by_name(const sg::Node *parent_node, const std::string &node_name);
+
+/**
+* @brief Decomposes quaternion rotation into `swing` and `twist` components
+* @param rotation Quaternion to decompose
+* @param direction Swing axis
+* @param swing Swing component of decomposition
+* @param twist Twist component of decomposition
+*/
+void swing_twist_decomposition(const glm::quat& rotation,
+			       const glm::vec3& direction,
+			       glm::quat& swing,
+			       glm::quat& twist);
 }        // namespace vkb
+
+

@@ -26,6 +26,7 @@
 #include "scene_graph/node.h"
 #include "scene_graph/script.h"
 #include "scene_graph/scripts/free_camera.h"
+#include "scene_graph/scripts/player_controller.h"
 
 namespace vkb
 {
@@ -287,4 +288,56 @@ sg::Node &add_free_camera(sg::Scene &scene, const std::string &node_name, VkExte
 	return *camera_node;
 }
 
+sg::Node &add_player_controller(sg::Scene &scene, const std::string &node_name, VkExtent2D extent)
+{
+	auto player_node = scene.find_node(node_name);
+		
+	if (!player_node)
+	{
+		LOGW("Player node `{}` not found.", node_name.c_str());
+	}
+
+	auto camera_pivot = find_child_by_name(player_node, "camera_pivot");
+
+	auto camera = find_child_by_name(camera_pivot, "player_camera");
+
+	if (!camera->has_component<sg::Camera>()) {
+		LOGI("Player controller loaded and camera found.");
+	}
+
+	auto player_controller_script = std::make_unique<sg::PlayerController>(*player_node);
+	player_controller_script->resize(extent.width, extent.height);
+
+	scene.add_component(std::move(player_controller_script), *player_node);
+
+	return *player_node;
+
+}
+
+sg::Node *find_child_by_name(const sg::Node *parent_node, const std::string &node_name)
+{
+	for (sg::Node* child: parent_node->get_children()) {
+		if (child->get_name() == node_name)
+		{
+			return child;
+		}
+	}
+
+	throw std::runtime_error("No child found for `" + node_name + "` node.");
+}
+
+void swing_twist_decomposition(const glm::quat& rotation,
+			       const glm::vec3& direction,
+			       glm::quat& swing,
+			       glm::quat& twist)
+{
+	glm::vec3 ra(rotation.x, rotation.y, rotation.z); // rotation axis
+	glm::vec3 p = glm::proj(ra, direction);
+	twist.x = p.x;
+	twist.y = p.y;
+	twist.z = p.z;
+	twist.w = rotation.w;
+	twist = glm::normalize(twist);
+	swing = rotation * glm::conjugate(twist);
+}
 }        // namespace vkb
