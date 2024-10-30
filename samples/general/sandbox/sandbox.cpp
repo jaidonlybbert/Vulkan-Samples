@@ -47,8 +47,9 @@ bool sandbox::prepare(const vkb::ApplicationOptions &options)
 	vkb::sg::Camera* camera = nullptr;
 
 	// Attach a move script to a player character with attached camera
-	auto &player_node = vkb::add_player_controller(get_scene(), "player_1", get_render_context().get_surface_extent());
+	auto &player_node = vkb::add_player_controller(get_scene(), "player", get_render_context().get_surface_extent());
 	auto camera_pivot = vkb::find_child_by_name(&player_node, "camera_pivot");
+	auto player_mesh = vkb::find_child_by_name(&player_node, "player_mesh");
 	camera = &vkb::find_child_by_name(camera_pivot, "player_camera")->get_component<vkb::sg::Camera>();
 
 	if (!camera) {

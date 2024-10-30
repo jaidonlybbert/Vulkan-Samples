@@ -298,6 +298,7 @@ sg::Node &add_player_controller(sg::Scene &scene, const std::string &node_name, 
 	}
 
 	auto camera_pivot = find_child_by_name(player_node, "camera_pivot");
+	auto player_mesh = find_child_by_name(player_node, "player_mesh");
 
 	auto camera = find_child_by_name(camera_pivot, "player_camera");
 

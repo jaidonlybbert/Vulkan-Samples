@@ -42,7 +42,7 @@ class PlayerController: public NodeScript
 	virtual void resize(uint32_t width, uint32_t height) override;
 
   private:
-	float speed_multiplier{3.0f};
+	float speed_multiplier{0.3f};
 
 	glm::vec2 mouse_move_delta{0.0f};
 
