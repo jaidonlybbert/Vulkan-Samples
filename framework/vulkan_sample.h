@@ -1008,8 +1008,8 @@ inline bool VulkanSample<bindingType>::prepare(const ApplicationOptions &options
 	LOGI("Initializing Vulkan sample");
 
 	// initialize C++-Bindings default dispatcher, first step
-#if TARGET_OS_IPHONE
-	static vk::DynamicLoader dl("vulkan.framework/vulkan");
+#if defined(_HPP_VULKAN_LIBRARY)
+	static vk::DynamicLoader dl(_HPP_VULKAN_LIBRARY);
 #else
 	static vk::DynamicLoader        dl;
 #endif
@@ -1296,6 +1296,8 @@ inline void VulkanSample<bindingType>::set_viewport_and_scissor_impl(vkb::core::
 template <vkb::BindingType bindingType>
 inline void VulkanSample<bindingType>::update(float delta_time)
 {
+	vkb::Application::update(delta_time);
+
 	update_scene(delta_time);
 
 	update_gui(delta_time);
